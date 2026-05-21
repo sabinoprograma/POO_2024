@@ -1,0 +1,55 @@
+<!-- templates/transporte_salida.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despachante</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Registrar Salida de Transporte</h1>
+    <!-- formulario para registrar la salida de un transporte -->
+    <form method="POST">
+        {% set sucursal_actual_obj = sucursales | selectattr("id", "equalto", sucursal_actual) | first %} <!-- obtengo la sucursal actual -->
+        <label for="sucursales">PAQUETES DE LA SUCURSAL: [{{sucursal_actual_obj.provincia}} - {{sucursal_actual_obj.localidad}}] </label>
+        <div class="small-space"></div>
+            <h2>Seleccionar paquetes</h2>
+            <ul>
+                <table>
+                    <thead>
+                      <tr>
+                        <th>Selección</th>
+                        <th>Número de envío</th>
+                        <th>Dirección</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for paquete in paquetes %}
+                        <tr>
+                        <td><input type="checkbox" name="paquetes" value="{{ paquete.id }}"></td>
+                        <td>{{ paquete.numeroenvio }}</td>
+                        <td>{{ paquete.dirdestino }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </ul>
+            {% set sucursal_salida_obj = sucursales | selectattr("id", "equalto", sucursal_salida) | first %}<!-- obtengo la sucursal salida -->
+            <button type="submit">Registrar en [{{sucursal_salida_obj.provincia}} - {{sucursal_salida_obj.localidad}}] </button>
+            <button type="button" onclick="window.location.href='/despachante'">Volver a inicio</button>
+        </form>
+    <!-- bloque para mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-{{ category }}">{{ message }}</div>
+                <div class="small-space"></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <footer>
+        <p>© 2024 LogiPack® Logística SRL. Todos los derechos reservados. Hecho por: Sabino Pignatari</p>
+    </footer>
+</body>
+</html>

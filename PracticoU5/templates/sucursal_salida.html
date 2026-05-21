@@ -1,0 +1,32 @@
+<!-- templates/sucursal_salida.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despachante</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h2 style="text-align: center;"><strong>Sistema LogiPack: Sucursal</strong></h2>
+    {% set sucursal_actual_obj = sucursales | selectattr("id", "equalto", sucursal_actual) | first %}
+    <h2 style="text-align: center;">Usted esta operando en la sucursal:  {{ sucursal_actual_obj.provincia }} - {{ sucursal_actual_obj.localidad }}</h2>
+    <p style="text-align: center;">Elija una sucursal de salida para el transporte:</p>
+
+    <!--formulario para seleccionar la sucursal de salida -->
+    <form method="POST" action="/sucursal_salida">
+        <select id="sucursal_salida" name="sucursal_salida">
+            {% for sucursal in sucursales%}
+                {% if sucursal.id!= sucursal_actual %}
+                    <option value="{{ sucursal.id }}">{{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <div class="small-space"></div>
+        <button type="submit">Continuar</button>
+    </form>
+    <footer>
+        <p>© 2024 LogiPack® Logística SRL. Todos los derechos reservados. Hecho por: Sabino Pignatari</p>
+    </footer>
+</body>
+</html>

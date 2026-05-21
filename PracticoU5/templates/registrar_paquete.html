@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Paquete</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>LogiPack: Registrar Paquete</h1>
+    <h2>Por favor, ingrese los datos del paquete</h2>
+    <div class="medium-space"></div>
+
+    <form method="POST" action="/registrar_paquete">
+        {% set sucursal_actual_obj = sucursales | selectattr("id", "equalto", sucursal_actual) | first %} <!-- obtengo la sucursal actual -->
+        <div class="form-group">
+        <label for="sucursales">OPERANDO EN SUCURSAL: [{{ sucursal_actual_obj.provincia }} - {{ sucursal_actual_obj.localidad }}] </label>
+        </div>
+        <div class="small-space"></div>
+        <div class="form-group">
+            <label for="nomdestino">Nombre del Destinatario:</label>
+            <input type="text" id="nomdestino" name="nomdestino" required>
+        </div>
+        <div class="form-group">
+            <label for="peso">Peso:</label>
+            <input type="text" id="peso" name="peso" required>
+        </div>
+        <div class="form-group">
+            <label for="dirdestino">Dirección del Destinatario:</label>
+            <input type="text" id="dirdestino" name="dirdestino" required>
+        </div>
+        <div class="form-group">
+            <label for="observaciones">Observaciones:</label>
+            <input type="text" id="observaciones" name="observaciones">
+        </div>
+        <button type="submit">Registrar Paquete</button>
+        <button type="button" onclick="window.location.href='/despachante'">Volver a inicio</button>
+    </form>
+
+    <!-- Bloque para mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-{{ category }}">{{ message }}</div>
+                <div class="small-space"></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <footer>
+        <p>© 2024 LogiPack® Logística SRL. Todos los derechos reservados. Hecho por: Sabino Pignatari</p>
+    </footer>
+</body>
+</html>

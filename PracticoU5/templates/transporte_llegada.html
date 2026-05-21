@@ -1,0 +1,53 @@
+<!-- templates/transporte_salida.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despachante</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Registrar Llegada de Transporte</h1>
+    <!-- formulario para transporte salida -->
+    <form method="POST">
+        {% set sucursal_actual_obj = sucursales | selectattr("id", "equalto", sucursal_actual) | first %} <!-- obtengo la sucursal actual -->
+        <label for="sucursales">PAQUETES DE LA SUCURSAL: [{{sucursal_actual_obj.provincia}} - {{sucursal_actual_obj.localidad}}] </label>
+        <div class="small-space"></div>
+            <h2>Seleccionar paquetes</h2>
+            <ul>
+                <table>
+                    <thead>
+                        <tr>
+                        <th>Selección</th>
+                        <th>Número de transporte</th>
+                        <th>Fecha y hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transporte in transportes %}
+                            {% if transporte.idsucursal == sucursal_actual %}
+                            <tr>
+                            <td><input type="checkbox" name="idtransporte" value="{{ transporte.id }}"></td>
+                            <td>{{ transporte.numerotransporte }}</td>
+                            <td>{{ transporte.fechahorasalida }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </ul>
+            <button type="submit">Registrar en [{{sucursal_actual_obj.provincia}} - {{sucursal_actual_obj.localidad}}] </button>
+            <button type="button" onclick="window.location.href='/despachante'">Volver a inicio</button>
+    </form>
+    <!-- bloque para mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-{{ category }}">{{ message }}</div>
+                <div class="small-space"></div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
