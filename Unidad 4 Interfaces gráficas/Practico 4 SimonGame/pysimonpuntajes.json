@@ -1,0 +1,35 @@
+{
+    "__class__": "GestorJugadores",
+    "jugadores": [
+        {
+            "__class__": "Jugador",
+            "__atributos__": {
+                "jugador": "Sabino",
+                "fecha": "23/06/2024",
+                "hora": "23:48:04",
+                "puntaje": 12,
+                "dificultad": "Super Experto"
+            }
+        },
+        {
+            "__class__": "Jugador",
+            "__atributos__": {
+                "jugador": "",
+                "fecha": "27/06/2024",
+                "hora": "16:41:14",
+                "puntaje": 4,
+                "dificultad": "Principiante"
+            }
+        },
+        {
+            "__class__": "Jugador",
+            "__atributos__": {
+                "jugador": "sabino",
+                "fecha": "27/06/2024",
+                "hora": "16:58:44",
+                "puntaje": 3,
+                "dificultad": "Principiante"
+            }
+        }
+    ]
+}

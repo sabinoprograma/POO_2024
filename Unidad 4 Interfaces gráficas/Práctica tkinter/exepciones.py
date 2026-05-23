@@ -1,0 +1,1 @@
+class SimonGameError(Exception): pass

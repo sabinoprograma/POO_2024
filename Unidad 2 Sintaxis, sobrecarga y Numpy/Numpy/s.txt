@@ -1,0 +1,81 @@
+ cargar csv Para escritura
+ def cargar_csv(self):
+     nom = "UNIDAD 2/EJERCICIOS U2/EJERCICIO 6/"
+     with open(nom,'w',newline='') as archivo_csv:
+       writer = csv.writer(archivo_csv)
+       for cuenta in self.__lista:
+         fila = [cuenta._Cuenta__ape,cuenta._Cuenta__nom,cuenta._Cuenta__DNI,round(cuenta._Cuenta__saldo,2),cuenta._Cuenta__CVU]
+         writer.writerow(fila)
+        
+ ordenar
+ lista = sorted(self.__lista)
+
+ maximo
+ maxi = max(self.__lista) pasa el objeto con el max se debe ocupar el operador > gT
+ si es numpy
+ class gestorcuenta():
+ def __init__(self):
+    self.__lista = np.array([],dtype='object')
+    
+ max = max(self.__lista)
+
+#sobrecarga operador > o <:
+
+   def __gt__(self, other):
+    if self.__promedio == other.getPromedio():
+        return self.__año > other.getAño()
+    else:
+      return self.__promedio > other.getPromedio()
+
+    def __lt__(self, other):
+    if self.__promedio == other.getPromedio():
+        return self.__año < other.getAño()
+    else:
+        return self.__promedio < other.getPromedio()
+    
+    def __lt__(self, other):
+      return self.__año < other.getAño()
+
+    def __gt__(self, other):
+      return self.__año < other.getAño()
+
+    def __ge__(self, other):
+      if isinstance(other, int):
+        return self.capacidad() >= other
+
+    def __eq__(self, otro):
+      """Sobrecarga del operador =="""
+      return self.x == otro.x and self.y == otro.y
+
+    def __ne__(self, otro):
+      """Sobrecarga del operador !="""
+      return not self == otro
+
+    def __le__(self, otro):
+      """Sobrecarga del operador <="""
+      distancia1 = self.x**2 + self.y**2
+      distancia2 = otro.x**2 + otro.y**2
+      return distancia1 <= distancia2
+
+    def __repr__(self):
+        """Sobrecarga del operador de representación"""
+        return f"Punto({self.x}, {self.y})"
+
+
+#gestor
+
+    def ordenar_Beneficiarios(self):
+		self.__lista=sorted(self.__lista)
+		print("ordenados de mayor a menor o menor a mayor por.")
+		for objeto in self.__lista:
+			print(objeto)
+		print("Lista Ordenada")
+
+#writer
+    def almacenarDatos(self):
+        nuevo_csv="Eje6/transaccionesActualizadas.csv"
+        with open(nuevo_csv,'w',newline='') as archi:
+            writer= csv.writer(archi)
+            for objetito in self.__lista:
+                row=[objetito.getApe(),objetito.getNom(),objetito.getDni(),round(objetito.getSaldo(),2),objetito.getCvu()]
+                writer.writerow(row)
